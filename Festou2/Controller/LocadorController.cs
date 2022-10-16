@@ -22,7 +22,8 @@ namespace Festou2.Controller
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
-            var model = await _context.Local.ToListAsync();
+            var model = await _context.Locador.ToListAsync();
+
             return Ok(model);
         }
 
@@ -42,5 +43,44 @@ namespace Festou2.Controller
             return CreatedAtAction("GetById", new { id = model.LocadorId }, model);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetById(int id)
+        {
+            var model = await _context.Locador
+                .Include(t => t.Locais)
+                .FirstOrDefaultAsync(c => c.LocadorId == id);
+
+            if (model == null) return NotFound();
+
+            return Ok(model);
+
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, Locador model)
+        {
+            if (id != model.LocadorId) return BadRequest();
+            var modeloDb = await _context.Locador.AsNoTracking()
+                .FirstOrDefaultAsync(c => c.LocadorId == id);
+            if (modeloDb == null) return NotFound();
+
+            _context.Locador.Update(model);
+            await _context.SaveChangesAsync();
+            return NoContent();
+
+        }
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var model = await _context.Locador.FindAsync(id);
+
+            if (model == null) return NotFound();
+
+            _context.Locador.Remove(model);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+
+        }
     }
 }
