@@ -5,11 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Festou2.Models
 {
     [Table("Local")]
-    public class Local : LinksHATEOS
+    public class Local
     {
 
         [Key]
-        public int LocalId { get; set; }
         public Ambiente ambiente { get; set; }
         public int QtdPessoas { get; set; }
         public TipoFesta tipoFesta { get; set; }

@@ -31,7 +31,7 @@ namespace Festou2.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClienteId"), 1L, 1);
 
                     b.Property<decimal>("ClienteBudget")
-                        .HasColumnType("decimal(38,10)");
+                        .HasColumnType("decimal(50,10)");
 
                     b.Property<int>("ClienteCPF")
                         .HasColumnType("int");
@@ -49,43 +49,6 @@ namespace Festou2.Migrations
                     b.HasKey("ClienteId");
 
                     b.ToTable("Clientes");
-                });
-
-            modelBuilder.Entity("Festou2.Models.LinkDto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("ClienteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Href")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("LocadorId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LocalId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Metodo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Rel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("LocadorId");
-
-                    b.HasIndex("LocalId");
-
-                    b.ToTable("LinkDto");
                 });
 
             modelBuilder.Entity("Festou2.Models.Locador", b =>
@@ -123,11 +86,8 @@ namespace Festou2.Migrations
 
             modelBuilder.Entity("Festou2.Models.Local", b =>
                 {
-                    b.Property<int>("LocalId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("ambiente")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocalId"), 1L, 1);
 
                     b.Property<int?>("LocadorId")
                         .HasColumnType("int");
@@ -135,32 +95,14 @@ namespace Festou2.Migrations
                     b.Property<int>("QtdPessoas")
                         .HasColumnType("int");
 
-                    b.Property<int>("ambiente")
-                        .HasColumnType("int");
-
                     b.Property<int>("tipoFesta")
                         .HasColumnType("int");
 
-                    b.HasKey("LocalId");
+                    b.HasKey("ambiente");
 
                     b.HasIndex("LocadorId");
 
                     b.ToTable("Local");
-                });
-
-            modelBuilder.Entity("Festou2.Models.LinkDto", b =>
-                {
-                    b.HasOne("Festou2.Models.Cliente", null)
-                        .WithMany("Links")
-                        .HasForeignKey("ClienteId");
-
-                    b.HasOne("Festou2.Models.Locador", null)
-                        .WithMany("Links")
-                        .HasForeignKey("LocadorId");
-
-                    b.HasOne("Festou2.Models.Local", null)
-                        .WithMany("Links")
-                        .HasForeignKey("LocalId");
                 });
 
             modelBuilder.Entity("Festou2.Models.Local", b =>
@@ -170,21 +112,9 @@ namespace Festou2.Migrations
                         .HasForeignKey("LocadorId");
                 });
 
-            modelBuilder.Entity("Festou2.Models.Cliente", b =>
-                {
-                    b.Navigation("Links");
-                });
-
             modelBuilder.Entity("Festou2.Models.Locador", b =>
                 {
-                    b.Navigation("Links");
-
                     b.Navigation("Locais");
-                });
-
-            modelBuilder.Entity("Festou2.Models.Local", b =>
-                {
-                    b.Navigation("Links");
                 });
 #pragma warning restore 612, 618
         }

@@ -52,7 +52,6 @@ namespace Festou2.Controller
 
             if (model == null) return NotFound();
 
-            GerarLinks(model);
             return Ok(model);
 
         }
@@ -81,13 +80,6 @@ namespace Festou2.Controller
             await _context.SaveChangesAsync();
 
             return NoContent();
-
-        }
-        private void GerarLinks(Locador model)
-        {
-            model.Links.Add(new LinkDto(model.LocadorId, Url.ActionLink(), rel: "self", metodo: "GET"));
-            model.Links.Add(new LinkDto(model.LocadorId, Url.ActionLink(), rel: "update", metodo: "PUT"));
-            model.Links.Add(new LinkDto(model.LocadorId, Url.ActionLink(), rel: "delete", metodo: "Delete"));
 
         }
     }
