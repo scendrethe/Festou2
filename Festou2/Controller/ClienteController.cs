@@ -50,6 +50,7 @@ namespace Festou2.Controller
 
             if (model == null) NotFound();
 
+            GerarLinks(model);
             return Ok(model);
 
         }
@@ -79,6 +80,12 @@ namespace Festou2.Controller
             return NoContent();
 
         }
+        private void GerarLinks(Cliente model)
+        {
+            model.Links.Add(new LinkDto(model.ClienteId, Url.ActionLink(), rel: "self", metodo: "GET"));
+            model.Links.Add(new LinkDto(model.ClienteId, Url.ActionLink(), rel: "update", metodo: "PUT"));
+            model.Links.Add(new LinkDto(model.ClienteId, Url.ActionLink(), rel: "delete", metodo: "Delete"));
 
+        }
     }
 }

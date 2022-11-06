@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Festou2.Models
 {
     [Table("Clientes")]
-    public class Cliente
+    public class Cliente : LinksHATEOS
     {
 
         [Key]

@@ -5,7 +5,7 @@ namespace Festou2.Models
 {
 
     [Table("Locadores")]
-    public class Locador
+    public class Locador : LinksHATEOS
     {
 
         [Key]
